@@ -38,7 +38,7 @@ color_types = [
 ]
 
 direction_types = [
-  {:active => 1, :code => "U",  :name => 'Unknown', :description => 'Unknown direction.'},
+  {:active => 1, :code => "XX", :name => 'Unknown', :description => 'Unknown direction.'},
   {:active => 1, :code => 'N',  :name => 'North', :description => 'North.'},
   {:active => 1, :code => 'NE', :name => 'North East', :description => 'North East.'},
   {:active => 1, :code => 'E',  :name => 'East', :description => 'East.'},
@@ -56,9 +56,9 @@ post_size_types = [
 ]
 
 post_types = [
-  {:active => 1, :name => 'Unknown', :description => 'Unknown post type.', :avg_cost => 0},
-  {:active => 1, :name => 'Aluminium', :description => 'Aluminuim.', :avg_cost => 500},
-  {:active => 1, :name => 'Wood', :description => 'Plywood.', :avg_cost => 250}
+  {:active => 1, :name => 'Unknown', :description => 'Unknown post type.'},
+  {:active => 1, :name => 'Aluminium', :description => 'Aluminuim.'},
+  {:active => 1, :name => 'Wood', :description => 'Plywood.'}
 ]
 
 service_life_calculation_types = [
@@ -75,7 +75,7 @@ sheeting_types = [
 ]
 
 side_types = [
-  {:active => 1, :code => "U",  :name => 'Unknown', :description => 'Unknown side.'},
+  {:active => 1, :code => "X",  :name => 'Unknown', :description => 'Unknown side.'},
   {:active => 1, :code => 'L',  :name => 'Left',  :description => 'Left.'},
   {:active => 1, :code => 'R',  :name => 'Right', :description => 'Right.'}
 ]

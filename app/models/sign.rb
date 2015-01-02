@@ -15,10 +15,8 @@ class Sign < Asset
   # Work Orders
   # ----------------------------------------------------
   # Signs can be associated with a work orders
-  belongs_to  :order
+  #belongs_to  :order
 
-  attr_accessible :distance_from_intersection
-  attr_accessible :direction_from_intersection
   validates_numericality_of :distance_from_intersection,        :only_integer => :true,   :greater_than_or_equal_to => 0
   validates                 :direction_from_intersection,       :presence => :true
 
@@ -30,16 +28,9 @@ class Sign < Asset
   # Type of backing material
   belongs_to :sign_blank_type
   # legend color
-  belongs_to :sign_legend_color_type, :class_name => 'ColorType', :foreign_key => :sign_legend_color_type_id, :conditions => {:legend => true}
+  belongs_to :sign_legend_color_type, :class_name => 'ColorType', :foreign_key => :sign_legend_color_type_id
   # background color
-  belongs_to :sign_background_color_type, :class_name => 'ColorType', :foreign_key => :sign_background_color_type_id, :conditions => {:background => true}
-  # make the ids accessible for update and new events
-  attr_accessible :sign_sheeting_type_id, :sign_blank_type_id, :sign_legend_color_type_id, :sign_background_color_type_id
-
-  # Message displayed on the sign
-  attr_accessible :sign_message
-  # Comments regarding the sign
-  attr_accessible :sign_comments
+  belongs_to :sign_background_color_type, :class_name => 'ColorType', :foreign_key => :sign_background_color_type_id
 
   # Validations for sign physical characteristics
   validates :sign_sheeting_type_id,         :presence => true
@@ -111,6 +102,10 @@ class Sign < Asset
   #
   #------------------------------------------------------------------------------
 
+  def self.allowable_params
+    FORM_PARAMS
+  end
+
 
   #------------------------------------------------------------------------------
   #
@@ -118,35 +113,39 @@ class Sign < Asset
   #
   #------------------------------------------------------------------------------
 
+  # Creates a duplicate that has all asset-specific attributes nilled
+  def copy(cleanse = true)
+    a = dup
+    a.cleanse if cleanse
+    a
+  end
+
   # Override the name property
   def name
-    "#{asset_subtype.name}: #{sign_message}"
+    description
   end
 
   # override the cost property
   def cost
-    asset_subtype.avg_cost + (post_count * post_type.avg_cost)
-  end
-
-  # returns the date that the asset was placed into service
-  def in_service_date
-    return install_date
+    purchase_cost
   end
 
   def searchable_fields
-    a = super
+    a = []
+    a << super
     SEARCHABLE_FIELDS.each do |field|
       a << field
     end
-    a
+    a.flatten
   end
 
   def cleansable_fields
-    a = super
+    a = []
+    a << super
     CLEANSABLE_FIELDS.each do |field|
       a << field
     end
-    a
+    a.flatten
   end
 
   #------------------------------------------------------------------------------
