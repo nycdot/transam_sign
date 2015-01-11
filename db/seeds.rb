@@ -80,8 +80,14 @@ side_types = [
   {:active => 1, :code => 'R',  :name => 'Right', :description => 'Right.'}
 ]
 
+time_of_day_types = [
+  {:active => 1, :name => 'Unknown',:description => 'Unknown.'},
+  {:active => 1, :name => 'Day',    :description => 'Day.'},
+  {:active => 1, :name => 'Night',  :description => 'Night.'}
+]
 
-lookup_tables = %w{ blank_types color_types direction_types post_size_types post_types service_life_calculation_types sheeting_types side_types }
+
+lookup_tables = %w{ blank_types color_types direction_types post_size_types post_types service_life_calculation_types sheeting_types side_types time_of_day_types }
 
 lookup_tables.each do |table_name|
   puts "  Loading #{table_name}"
