@@ -8,12 +8,12 @@ is_sqlite =  (ActiveRecord::Base.configurations[Rails.env]['adapter'] == 'sqlite
 #
 # Lookup Tables
 #
-# These are the lookup tables for TransAM Spatial
+# These are the lookup tables for TransAM Sign. The configurations herein should
+# conform as much as possible to the MUTCD 2012 Standard Highway Signs
+#
+# http://mutcd.fhwa/gov/ser-shs_millenium.htm
 #
 #------------------------------------------------------------------------------
-
-puts "======= Processing TransAM Sign Lookup Tables  ======="
-
 
 blank_types = [
   {:active => 1, :name => 'Unknown', :description => 'Unknown blank type.'},
@@ -49,16 +49,16 @@ direction_types = [
   {:active => 1, :code => 'NW', :name => 'North West', :description => 'North West.'}
 ]
 
-post_size_types = [
+support_size_types = [
   {:active => 1, :name => 'Unknown', :description => 'Unknown post size.'},
   {:active => 1, :name => '2 x 2', :description => 'Two by Two inches.'},
   {:active => 1, :name => '4 x 2', :description => 'Four inches by two inches.'}
 ]
 
-post_types = [
+support_types = [
   {:active => 1, :name => 'Unknown', :description => 'Unknown post type.'},
   {:active => 1, :name => 'Aluminium', :description => 'Aluminuim.'},
-  {:active => 1, :name => 'Wood', :description => 'Plywood.'}
+  {:active => 1, :name => 'Couplers', :description => 'Couplers.'}
 ]
 
 service_life_calculation_types = [
@@ -86,8 +86,38 @@ time_of_day_types = [
   {:active => 1, :name => 'Night',  :description => 'Night.'}
 ]
 
+#------------------------------------------------------------------------------
+#
+# Sign Taxonomy
+#
+# This is the deafult taxonomy for TransAM Sign.  Note that Sign can be added
+# to other configs eg DOT + Sign, Transit + Sign, etc., so the taxonomy for sign
+# is added to the existing taxonomy and does not replace it.
+#
+#------------------------------------------------------------------------------
 
-lookup_tables = %w{ blank_types color_types direction_types post_size_types post_types service_life_calculation_types sheeting_types side_types time_of_day_types }
+asset_types = [
+  {:active => 1, :name => 'Sign',       :description => 'Sign',                 :class_name => 'Sign',    :map_icon_name => "redIcon",    :display_icon_name => "fa fa-warning"},
+  {:active => 1, :name => 'Support',    :description => 'Support Structrure',   :class_name => 'Support', :map_icon_name => "greenIcon",  :display_icon_name => "fa fa-warning"}
+]
+
+asset_subtypes = [
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Regulatory Sign', :description => 'Regulatory Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Warning Sign', :description => 'Warning Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Guide Sign', :description => 'Guide Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'School Sign', :description => 'School Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Parking Sign', :description => 'Parking Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Bus Sign', :description => 'Bus Sign'},
+
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Single Post', :description => 'Single Post'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Double Post', :description => 'Double Post'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Gantry', :description => 'Gantry'}
+
+]
+
+puts "======= Processing TransAM Sign Lookup Tables  ======="
+
+lookup_tables = %w{ blank_types color_types direction_types support_size_types support_types service_life_calculation_types sheeting_types side_types time_of_day_types }
 
 lookup_tables.each do |table_name|
   puts "  Loading #{table_name}"
@@ -104,4 +134,24 @@ lookup_tables.each do |table_name|
     x = klass.new(row)
     x.save!
   end
+end
+
+puts "======= Processing TransAM Sign Taxonomy  ======="
+
+table_name = 'asset_types'
+puts "  Loading #{table_name}"
+data = eval(table_name)
+klass = table_name.classify.constantize
+data.each do |row|
+  x = klass.new(row)
+  x.save!
+end
+
+table_name = 'asset_subtypes'
+puts "  Loading #{table_name}"
+data = eval(table_name)
+data.each do |row|
+  x = AssetSubtype.new(row.except(:belongs_to, :type))
+  x.asset_type = AssetType.where(:name => row[:type]).first
+  x.save!
 end
