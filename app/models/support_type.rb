@@ -1,4 +1,4 @@
-class PostType < ActiveRecord::Base
+class SupportType < ActiveRecord::Base
 
   # default scope
   default_scope { where(:active => true) }
@@ -6,5 +6,5 @@ class PostType < ActiveRecord::Base
   def to_s
     name
   end
-  
+
 end

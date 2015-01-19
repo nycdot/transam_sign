@@ -1,4 +1,4 @@
-class PostSizeType < ActiveRecord::Base
+class SupportSizeType < ActiveRecord::Base
 
   # default scope
   default_scope { where(:active => true) }
