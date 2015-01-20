@@ -2,5 +2,6 @@
 Rails.configuration.to_prepare do
   Asset.class_eval do
     include TransamSignAsset
+    set_rgeo_factory_for_column(:geometry,  RGeo::Geographic.spherical_factory(:srid => 4326))
   end
 end
