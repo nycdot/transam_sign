@@ -24,10 +24,10 @@ class Sign < Asset
   belongs_to  :sign_standard
 
   # Type of sheeting used on the face of the sign
-  belongs_to  :sign_sheeting_type
+  belongs_to  :sheeting_type
 
   # Type of backing material
-  belongs_to  :sign_blank_type
+  belongs_to  :blank_type
 
   # legend color
   belongs_to  :sign_legend_color_type, :class_name => 'ColorType', :foreign_key => :sign_legend_color_type_id
@@ -55,8 +55,8 @@ class Sign < Asset
   # ----------------------------------------------------
 
   validates :sign_standard,               :presence => true
-  validates :sign_sheeting_type,          :presence => true
-  validates :sign_blank_type,             :presence => true
+  validates :sheeting_type,               :presence => true
+  validates :blank_type,                  :presence => true
   #validates :sign_legend_color_type,      :presence => true
   #validates :sign_background_color_type,  :presence => true
   #validates :support_type,                :presence => true
@@ -66,7 +66,7 @@ class Sign < Asset
   validates :side_of_road_type,           :presence => true
 
   validates :distance_from_intersection,  :presence => true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 0}
-  validates :distance_from_curb,          :presence => true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 0}
+  validates :lateral_offset,              :presence => true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 0}
 
   validates :street_name,                 :presence => true
 
@@ -151,6 +151,8 @@ class Sign < Asset
   # Set resonable defaults for a new generic sign
   def set_defaults
     super
+    self.distance_from_intersection ||= 0
+    self.lateral_offset ||= 0
   end
 
 end

@@ -37,12 +37,16 @@ class SignStandard < ActiveRecord::Base
   # A sign standard can be superceded
   belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_id
 
+  # A sign standard is always associated with an asset subtype
+  belongs_to  :asset_subtype
+
   # ----------------------------------------------------
   # Validations
   # ----------------------------------------------------
   validates   :smo_code,            :presence => true
   validates   :size_description,    :presence => true
   validates   :sign_description,    :presence => true
+  validates   :asset_subtype,       :presence => true
 
   #------------------------------------------------------------------------------
   # Lists. These lists are used by derived classes to make up lists of attributes
@@ -52,6 +56,7 @@ class SignStandard < ActiveRecord::Base
 
   FORM_PARAMS = [
     :smo_code,
+    :asset_subtype_id,
     :size_description,
     :sign_description,
     :superseded_by_id
@@ -59,6 +64,7 @@ class SignStandard < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = [
     :smo_code,
+    :asset_subtype,
     :size_text,
     :sign_text
   ]
