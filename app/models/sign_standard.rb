@@ -35,7 +35,7 @@ class SignStandard < ActiveRecord::Base
   has_many    :signs, :class_name => 'Sign', :foreign_key => :asset_id
 
   # A sign standard can be superceded
-  belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_id
+  belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_by_id
 
   # A sign standard is always associated with an asset subtype
   belongs_to  :asset_subtype
@@ -96,7 +96,7 @@ class SignStandard < ActiveRecord::Base
 
   # Provide a SMO description
   def description
-    "#{code} #{size_text} #{sign_text}"
+    "#{smo_code} #{size_description} #{sign_description}"
   end
 
   # Override the name property
