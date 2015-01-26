@@ -78,8 +78,8 @@ class Sign < Asset
 
   SEARCHABLE_FIELDS = [
     :sign_standard,
-    :sign_sheeting_type,
-    :sign_blank_type,
+    :sheeting_type,
+    :blank_type,
     :street_name
   ]
   CLEANSABLE_FIELDS = [
