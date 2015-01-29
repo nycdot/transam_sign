@@ -100,6 +100,9 @@ class Sign < Asset
   #
   #------------------------------------------------------------------------------
 
+  def description
+    sign_standard.to_s
+  end
   # Install date is modeled as the in-service-date for the sign
   def install_date
     in_service_date
