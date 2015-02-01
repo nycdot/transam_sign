@@ -40,11 +40,17 @@ class Sign < Asset
   # Size of the post in inches
   belongs_to  :support_size_type
 
+  # Type of support
+  belongs_to  :support_condition_type,  :class_name => 'ConditionType', :foreign_key => :support_condition_type_id
+
   # Direction of travel with respect to mileposts, markers, etc.
   belongs_to  :travel_direction_type,  :class_name => "DirectionType", :foreign_key => :travel_direction_type_id
 
   # Compass direction for the face of the sign
   belongs_to  :facing_direction_type,  :class_name => "DirectionType", :foreign_key => :facing_direction_type_id
+
+  # Compass direction for the face of the sign
+  belongs_to  :arrow_direction_type,  :class_name => "DirectionType", :foreign_key => :arrow_direction_type_id
 
   # Side of the road for the sign w/r/t the direction of travel
   belongs_to  :side_of_road_type,      :class_name => "SideType",      :foreign_key => :side_of_road_type_id
@@ -81,6 +87,26 @@ class Sign < Asset
     :blank_type,
     :street_name
   ]
+
+  FORM_PARAMS = [
+    :sign_standard_id,
+    :blank_type_id,
+    :sheeting_type_id,
+    :sign_legend_color_type_id,
+    :sign_background_color_type_id,
+    :street_name,
+    :lateral_offset,
+    :distance_from_intersection,
+    :side_of_road_type_id,
+    :facing_direction_type_id,
+    :travel_direction_type_id,
+    :arrow_direction_type_id,
+    :support_type_id,
+    :support_size_type_id,
+    :support_condition_type_id,
+    :support_in_service_date
+  ]
+
   CLEANSABLE_FIELDS = [
 
   ]
