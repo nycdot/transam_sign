@@ -75,7 +75,6 @@ sheeting_types = [
 ]
 
 side_types = [
-  {:active => 1, :code => "X",  :name => 'Unknown', :description => 'Unknown side.'},
   {:active => 1, :code => 'L',  :name => 'Left',  :description => 'Left.'},
   {:active => 1, :code => 'R',  :name => 'Right', :description => 'Right.'}
 ]
