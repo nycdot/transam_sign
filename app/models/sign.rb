@@ -60,14 +60,14 @@ class Sign < Asset
   # ----------------------------------------------------
 
   validates :sign_standard,               :presence => true
-  validates :sheeting_type,               :presence => true
-  validates :blank_type,                  :presence => true
+  #validates :sheeting_type,               :presence => true
+  #validates :blank_type,                  :presence => true
   #validates :sign_legend_color_type,      :presence => true
   #validates :sign_background_color_type,  :presence => true
   #validates :support_type,                :presence => true
   #validates :support_size_type,           :presence => true
-  validates :travel_direction_type,       :presence => true
-  validates :facing_direction_type,       :presence => true
+  #validates :travel_direction_type,       :presence => true
+  #validates :facing_direction_type,       :presence => true
   validates :side_of_road_type,           :presence => true
 
   validates :distance_from_intersection,  :presence => true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 0}
