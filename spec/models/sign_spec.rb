@@ -34,45 +34,45 @@ RSpec.describe Sign, :type => :model do
       expect(persisted_sign).to be_valid
     end
 
-    it 'must have a sheeting type to save' do
-      persisted_sign.sheeting_type_id = nil
-      expect(persisted_sign).not_to be_valid
-
-      persisted_sign.sheeting_type_id = 1
-      expect(persisted_sign).to be_valid
-    end
-
-    it 'must have a blank type to save' do
-      persisted_sign.blank_type_id = nil
-      expect(persisted_sign).not_to be_valid
-
-      persisted_sign.blank_type_id = 1
-      expect(persisted_sign).to be_valid
-    end
-
-    it 'must have a travel direction type to save' do
-      persisted_sign.travel_direction_type_id = nil
-      expect(persisted_sign).not_to be_valid
-
-      persisted_sign.travel_direction_type_id = 1
-      expect(persisted_sign).to be_valid
-    end
-
-    it 'must have a facing direction type to save' do
-      persisted_sign.facing_direction_type_id = nil
-      expect(persisted_sign).not_to be_valid
-
-      persisted_sign.facing_direction_type_id = 1
-      expect(persisted_sign).to be_valid
-    end
-
-    it 'must have a side of road type to save' do
-      persisted_sign.side_of_road_type_id = nil
-      expect(persisted_sign).not_to be_valid
-
-      persisted_sign.side_of_road_type_id = 1
-      expect(persisted_sign).to be_valid
-    end
+    # it 'must have a sheeting type to save' do
+    #   persisted_sign.sheeting_type_id = nil
+    #   expect(persisted_sign).not_to be_valid
+    #
+    #   persisted_sign.sheeting_type_id = 1
+    #   expect(persisted_sign).to be_valid
+    # end
+    #
+    # it 'must have a blank type to save' do
+    #   persisted_sign.blank_type_id = nil
+    #   expect(persisted_sign).not_to be_valid
+    #
+    #   persisted_sign.blank_type_id = 1
+    #   expect(persisted_sign).to be_valid
+    # end
+    #
+    # it 'must have a travel direction type to save' do
+    #   persisted_sign.travel_direction_type_id = nil
+    #   expect(persisted_sign).not_to be_valid
+    #
+    #   persisted_sign.travel_direction_type_id = 1
+    #   expect(persisted_sign).to be_valid
+    # end
+    #
+    # it 'must have a facing direction type to save' do
+    #   persisted_sign.facing_direction_type_id = nil
+    #   expect(persisted_sign).not_to be_valid
+    #
+    #   persisted_sign.facing_direction_type_id = 1
+    #   expect(persisted_sign).to be_valid
+    # end
+    #
+    # it 'must have a side of road type to save' do
+    #   persisted_sign.side_of_road_type_id = nil
+    #   expect(persisted_sign).not_to be_valid
+    #
+    #   persisted_sign.side_of_road_type_id = 1
+    #   expect(persisted_sign).to be_valid
+    # end
 
     it 'must have a distance from intersection to save' do
       persisted_sign.distance_from_intersection = nil
