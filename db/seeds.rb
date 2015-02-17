@@ -68,10 +68,10 @@ service_life_calculation_types = [
 ]
 
 sheeting_types = [
-  {:active => 1, :name => 'Unknown',                  :max_service_life => 7, :description => 'Unknown sheeting type.'},
-  {:active => 1, :name => 'Prismatic High Intensity', :max_service_life => 7, :description => 'Prismatic High Intensity.'},
-  {:active => 1, :name => 'Diamond Grade',            :max_service_life => 7, :description => 'Diamond Grade - Fluorescent Yellow.'},
-  {:active => 1, :name => 'Engineering Grade',        :max_service_life => 7, :description => 'Engineer Grade.'}
+  {:active => 1, :code => 'PNT',  :name => 'Painted',                  :max_service_life => 7,  :description => 'Painted.'},
+  {:active => 1, :code => 'PHI',  :name => 'Prismatic High Intensity', :max_service_life => 10, :description => 'Prismatic High Intensity.'},
+  {:active => 1, :code => 'DG',   :name => 'Diamond Grade',            :max_service_life => 10, :description => 'Diamond Grade - Fluorescent Yellow.'},
+  {:active => 1, :code => 'EG',   :name => 'Engineering Grade',        :max_service_life => 7,  :description => 'Engineer Grade.'}
 ]
 
 side_types = [
