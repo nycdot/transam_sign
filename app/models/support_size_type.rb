@@ -1,7 +1,6 @@
 class SupportSizeType < ActiveRecord::Base
 
-  # default scope
-  default_scope { where(:active => true) }
+  scope :active, -> { where(active: true) }
 
   def to_s
     name
