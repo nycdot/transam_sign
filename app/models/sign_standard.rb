@@ -85,8 +85,8 @@ class SignStandard < ActiveRecord::Base
   #
   #------------------------------------------------------------------------------
 
-  # Returns true if the SMO has been superseded
-  def superseded?
+  # Returns true if the SMO has been superseded (deprecated)
+  def deprecated?
     superseded_by.present?
   end
 

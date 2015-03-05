@@ -60,14 +60,14 @@ RSpec.describe SignStandard, :type => :model do
     end
   end
 
-  describe '#superseded?' do
+  describe '#deprecated?' do
     it 'should be false by default' do
-      expect(test_sign_standard.superseded?).to be false
+      expect(test_sign_standard.deprecated?).to be false
     end
 
     it 'should be true if has superseded_by' do
       test_sign_standard.superseded_by = build_stubbed(:sign_standard)
-      expect(test_sign_standard.superseded?).to be true
+      expect(test_sign_standard.deprecated?).to be true
     end
   end
 
