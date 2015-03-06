@@ -115,6 +115,15 @@ class SignStandard < ActiveRecord::Base
    end
   end
 
+  # Returns true if the sign has been voided
+  def voided?
+    if voided_on_date.nil?
+      false
+    else
+      (voided_on_date <= Date.today)
+    end
+  end
+
   def legend
     sign_description
   end
