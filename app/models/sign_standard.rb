@@ -14,6 +14,8 @@
 #   superseded_by_id  --  a foreign key of a SMO that has superseded the current
 #                         SMO
 #   superseded_date   --  the date that the SMO was superseded
+#   voided_on_date    --  the date that the SMO was voided, nil if the SMO is still
+#                         active
 #
 #------------------------------------------------------------------------------
 class SignStandard < ActiveRecord::Base
@@ -40,6 +42,14 @@ class SignStandard < ActiveRecord::Base
   # A sign standard is always associated with an asset subtype
   belongs_to  :asset_subtype
 
+  # Has 0 or more comments. Using a polymorphic association, These will be removed if the sign standard is removed
+  has_many    :comments,    :as => :commentable,  :dependent => :destroy
+
+  # ----------------------------------------------------
+  # Transient Properties
+  # ----------------------------------------------------
+  attr_accessor :new_comment
+
   # ----------------------------------------------------
   # Validations
   # ----------------------------------------------------
@@ -59,7 +69,9 @@ class SignStandard < ActiveRecord::Base
     :asset_subtype_id,
     :size_description,
     :sign_description,
-    :superseded_by_id
+    :superseded_by_id,
+    :voided_on_date,
+    :new_comment
   ]
 
   SEARCHABLE_FIELDS = [
@@ -90,6 +102,24 @@ class SignStandard < ActiveRecord::Base
     superseded_by.present?
   end
 
+  # Returns true if the sign standard can be deleted
+  def deleteable?
+    if smo_code == 'SPECIAL'
+      # Can't delete the special code
+      false
+   elsif signs.present?
+     # Can't delete if there are assets using the code
+     false
+   else
+     true
+   end
+  end
+
+  def legend
+    sign_description
+  end
+
+  # Override default to_s
   def to_s
     name
   end
