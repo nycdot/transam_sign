@@ -34,7 +34,7 @@ class SignStandard < ActiveRecord::Base
   # Associations
   #-----------------------------------------------------------------------------
   # Every SignStandard can be implemented by 0 or more signs
-  has_many    :signs, :class_name => 'Sign', :foreign_key => :asset_id
+  has_many    :signs, :class_name => 'Sign'
 
   # A sign standard can be superceded
   belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_by_id
