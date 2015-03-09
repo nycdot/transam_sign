@@ -126,6 +126,16 @@ class Sign < Asset
   #
   #------------------------------------------------------------------------------
 
+  def smo
+    sign_standard.smo_code unless sign_standard.blank?
+  end
+  def legend
+    sign_standard.sign_description unless sign_standard.blank?
+  end
+  def size
+    sign_standard.size_description unless sign_standard.blank?
+  end
+  
   def description
     sign_standard.to_s
   end
