@@ -101,13 +101,13 @@ asset_types = [
 ]
 
 asset_subtypes = [
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Regulatory Sign', :description => 'Regulatory Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Warning Sign', :description => 'Warning Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Guide Sign', :description => 'Guide Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'School Sign', :description => 'School Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Parking Sign', :description => 'Parking Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Bus Sign', :description => 'Bus Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :name => 'Special', :description => 'Special Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'redIcon',     :name => 'Regulatory Sign', :description => 'Regulatory Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'orangeIcon',  :name => 'Warning Sign', :description => 'Warning Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'blueIcon',    :name => 'Guide Sign', :description => 'Guide Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'School Sign', :description => 'School Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'Parking Sign', :description => 'Parking Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'Bus Sign', :description => 'Bus Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'purpleIcon',  :name => 'Special', :description => 'Special Sign'},
 
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Single Post', :description => 'Single Post'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Double Post', :description => 'Double Post'},
