@@ -1,3 +1,3 @@
 module TransamSign
-  VERSION = "0.0.3c"
+  VERSION = "0.0.3d"
 end
