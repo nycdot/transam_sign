@@ -49,7 +49,8 @@ class SignStandard < ActiveRecord::Base
   # Transient Properties
   # ----------------------------------------------------
   attr_accessor :new_comment
-
+  # Identifies the SMO that this SMO will replace
+  attr_accessor :replace_smo
   # ----------------------------------------------------
   # Validations
   # ----------------------------------------------------
@@ -71,7 +72,8 @@ class SignStandard < ActiveRecord::Base
     :sign_description,
     :superseded_by_id,
     :voided_on_date,
-    :new_comment
+    :new_comment,
+    :replace_smo
   ]
 
   SEARCHABLE_FIELDS = [
