@@ -101,13 +101,13 @@ asset_types = [
 ]
 
 asset_subtypes = [
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'redIcon',     :name => 'Regulatory Sign', :description => 'Regulatory Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'orangeIcon',  :name => 'Warning Sign', :description => 'Warning Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'blueIcon',    :name => 'Guide Sign', :description => 'Guide Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'School Sign', :description => 'School Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'Parking Sign', :description => 'Parking Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenIcon',   :name => 'Bus Sign', :description => 'Bus Sign'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'purpleIcon',  :name => 'Special', :description => 'Special Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'redDotIcon',     :name => 'Regulatory Sign', :description => 'Regulatory Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'orangeDotIcon',  :name => 'Warning Sign', :description => 'Warning Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'greenDotIcon',   :name => 'Guide Sign', :description => 'Guide Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'cyanDotIcon',    :name => 'School Sign', :description => 'School Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'blueDotIcon',    :name => 'Parking Sign', :description => 'Parking Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'pinkDotIcon',    :name => 'Bus Sign', :description => 'Bus Sign'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Sign', :icon => 'purpleDotIcon',  :name => 'Special', :description => 'Special Sign'},
 
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Single Post', :description => 'Single Post'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Double Post', :description => 'Double Post'},
