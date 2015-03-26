@@ -99,6 +99,11 @@ class SignStandard < ActiveRecord::Base
   #
   #------------------------------------------------------------------------------
 
+  # Returns the SMO that this SMO supersedes if there is one
+  def superseded_smo
+    SignStandard.find_by(:superseded_by_id => id)
+  end
+
   # Returns true if the SMO has been superseded (deprecated)
   def deprecated?
     superseded_by.present?
