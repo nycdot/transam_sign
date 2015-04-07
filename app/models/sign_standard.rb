@@ -42,6 +42,9 @@ class SignStandard < ActiveRecord::Base
   # A sign standard is always associated with an asset subtype
   belongs_to  :asset_subtype
 
+  # A sign standard is always associated with an sign standard type
+  belongs_to  :sign_standard_type
+
   # Has 0 or more comments. Using a polymorphic association, These will be removed if the sign standard is removed
   has_many    :comments,    :as => :commentable,  :dependent => :destroy
 
@@ -58,6 +61,7 @@ class SignStandard < ActiveRecord::Base
   validates   :size_description,    :length => { :in => 1..16 }
   validates   :sign_description,    :length => { :in => 1..254 }
   validates   :asset_subtype,       :presence => true
+  validates   :sign_standard_type,  :presence => true
 
   #------------------------------------------------------------------------------
   # Lists. These lists are used by derived classes to make up lists of attributes
@@ -68,6 +72,7 @@ class SignStandard < ActiveRecord::Base
   FORM_PARAMS = [
     :smo_code,
     :asset_subtype_id,
+    :sign_standard_type_id,
     :size_description,
     :sign_description,
     :superseded_by_id,
@@ -79,6 +84,7 @@ class SignStandard < ActiveRecord::Base
   SEARCHABLE_FIELDS = [
     :smo_code,
     :asset_subtype,
+    :sign_standard_type,
     :size_text,
     :sign_text
   ]
