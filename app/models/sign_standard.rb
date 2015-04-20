@@ -99,6 +99,10 @@ class SignStandard < ActiveRecord::Base
     FORM_PARAMS
   end
 
+  def self.active
+    where('voided_on_date IS NULL OR voided_on_date < ?', Date.today)
+  end
+
   #------------------------------------------------------------------------------
   #
   # Instance Methods

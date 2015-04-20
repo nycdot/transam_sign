@@ -8,6 +8,8 @@
 #------------------------------------------------------------------------------
 class SignStandardType < ActiveRecord::Base
 
+  default_scope { order(:name) }
+
   # All order types that are available
   scope :active, -> { where(:active => true) }
 
