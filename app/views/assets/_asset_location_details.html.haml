@@ -1,0 +1,2 @@
+- if @asset.respond_to?(:parent) && asset.parent
+  = format_field("Location",  asset.parent.nil? ? 'Unknown' : link_to(asset.parent.object_key, inventory_path(asset.parent)) )

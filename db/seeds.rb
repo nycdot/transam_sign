@@ -16,10 +16,10 @@ is_sqlite =  (ActiveRecord::Base.configurations[Rails.env]['adapter'] == 'sqlite
 #------------------------------------------------------------------------------
 
 blank_types = [
-  {:active => 1, :name => 'Unknown', :description => 'Unknown blank type.'},
-  {:active => 1, :name => 'Aluminium', :description => 'Aluminiu m.'},
-  {:active => 1, :name => 'Other Metal', :description => 'Other Metal.'},
-  {:active => 1, :name => 'Plywood', :description => 'Plywood.'}
+  {:active => 1, :name => 'Unknown',      :description => 'Unknown blank type.'},
+  {:active => 1, :name => 'Aluminium',    :description => 'Aluminium.'},
+  {:active => 1, :name => 'Other Metal',  :description => 'Other Metal.'},
+  {:active => 1, :name => 'Plywood',      :description => 'Plywood.'}
 ]
 
 color_types = [
@@ -85,6 +85,33 @@ time_of_day_types = [
   {:active => 1, :name => 'Night',  :description => 'Night.'}
 ]
 
+fuel_types = [
+  {:active => 1, :name => 'Unknown',                        :code => 'XX', :description => 'No Fuel type specified.'},
+  {:active => 1, :name => 'Biodiesel',                      :code => 'BD', :description => 'Biodiesel.'},
+  {:active => 1, :name => 'Bunker Fuel',                    :code => 'BF', :description => 'Bunker Fuel.'},
+  {:active => 1, :name => 'Compressed Natural Gas',         :code => 'CN', :description => 'Compressed Natutral Gas.'},
+  {:active => 1, :name => 'Diesel Fuel',                    :code => 'DF', :description => 'Diesel Fuel.'},
+  {:active => 1, :name => 'Dual Fuel',                      :code => 'DU', :description => 'Dual Fuel.'},
+  {:active => 1, :name => 'Electric Battery',               :code => 'EB', :description => 'Electric Battery.'},
+  {:active => 1, :name => 'Electric Propulsion',            :code => 'EP', :description => 'Electric Propulsion.'},
+  {:active => 1, :name => 'Ethanol',                        :code => 'ET', :description => 'Ethanol.'},
+  {:active => 1, :name => 'Gasoline',                       :code => 'GA', :description => 'Gasoline.'},
+  {:active => 1, :name => 'Hybrid Diesel',                  :code => 'HD', :description => 'Hybrid Diesel.'},
+  {:active => 1, :name => 'Hybrid Gasoline',                :code => 'HG', :description => 'Hybrid Gasoline.'},
+  {:active => 1, :name => 'Hydrogen',                       :code => 'HY', :description => 'Hydrogen.'},
+  {:active => 1, :name => 'Kerosene',                       :code => 'KE', :description => 'Kerosene.'},
+  {:active => 1, :name => 'Liquefied Natural Gas',          :code => 'LN', :description => 'Liquefied Natural Gas.'},
+  {:active => 1, :name => 'Liquefied Petroleum Gas',        :code => 'LP', :description => 'Liquefied Petroleum Gas.'},
+  {:active => 1, :name => 'Methanol',                       :code => 'MT', :description => 'Methanol.'},
+  {:active => 1, :name => 'Other',                          :code => 'OR', :description => 'Other.'}
+]
+vehicle_features = [
+  {:active => 1, :name => 'AVL System',           :code => 'AS', :description => 'Automatic Vehicle Location System.'},
+  {:active => 1, :name => 'Video Cameras',        :code => 'VC', :description => 'Video Cameras.'},
+  {:active => 1, :name => 'Radio Equipped',       :code => 'RE', :description => 'Radio Equipped.'},
+  {:active => 1, :name => 'WIFI',                 :code => 'WI', :description => 'WIFI.'}
+]
+
 #------------------------------------------------------------------------------
 #
 # Sign Taxonomy
@@ -96,8 +123,9 @@ time_of_day_types = [
 #------------------------------------------------------------------------------
 
 asset_types = [
-  {:active => 1, :name => 'Sign',       :description => 'Sign',                 :class_name => 'Sign',    :map_icon_name => "redIcon",    :display_icon_name => "fa fa-warning"},
-  {:active => 1, :name => 'Support',    :description => 'Support Structrure',   :class_name => 'Support', :map_icon_name => "greenIcon",  :display_icon_name => "fa fa-warning"}
+  {:active => 1, :name => 'Sign',             :description => 'Sign',                 :class_name => 'Sign',            :map_icon_name => "redDotIcon",    :display_icon_name => "fa fa-warning"},
+  {:active => 1, :name => 'Support',          :description => 'Support Structrure',   :class_name => 'Support',         :map_icon_name => "greenDotIcon",  :display_icon_name => "fa fa-warning"}
+  {:active => 1, :name => 'Service Vehicle',  :description => 'Service Vehicle',      :class_name => 'ServiceVehicle',  :map_icon_name => "blueDotIcon",   :display_icon_name => "fa fa-truck"}
 ]
 
 asset_subtypes = [
@@ -111,13 +139,18 @@ asset_subtypes = [
 
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Single Post', :description => 'Single Post'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Double Post', :description => 'Double Post'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Gantry', :description => 'Gantry'}
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Gantry', :description => 'Gantry'},
+
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Van', :description => 'Van'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Utility Truck', :description => 'Utility Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Pickup Truck',   :description => 'Pickup Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Bucket Truck',   :description => 'Bucket Truck'}
 
 ]
 
 puts "======= Processing TransAM Sign Lookup Tables  ======="
 
-lookup_tables = %w{ blank_types color_types direction_types support_size_types support_types service_life_calculation_types sheeting_types side_types time_of_day_types }
+lookup_tables = %w{ blank_types color_types direction_types support_size_types support_types service_life_calculation_types sheeting_types side_types time_of_day_types fuel_types vehicle_features }
 
 lookup_tables.each do |table_name|
   puts "  Loading #{table_name}"
