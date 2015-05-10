@@ -36,7 +36,8 @@ class ServiceVehicle < Asset
   #-----------------------------------------------------------------------------
   # Service Vehicle Physical Characteristics
   #-----------------------------------------------------------------------------
-  validates :crew_size,                   :presence => :true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 1}
+  validates :license_plate,               :presence => :true
+  validates :seating_capacity,            :presence => :true, :numericality => {:only_integer => :true, :greater_than_or_equal_to => 1}
   validates :fuel_type,                   :presence => :true
   validates :serial_number,               :presence => :true
   validates :gross_vehicle_weight,        :allow_nil => true, :numericality => {:only_integer => :true,   :greater_than_or_equal_to => 0}
@@ -71,7 +72,7 @@ class ServiceVehicle < Asset
 
   # List of hash parameters specific to this class that are allowed by the controller
   FORM_PARAMS = [
-    :crew_size,
+    :seating_capacity,
     :license_plate,
     :serial_number,
     :gross_vehicle_weight
@@ -101,12 +102,11 @@ class ServiceVehicle < Asset
     super.merge(
     {
       :reported_mileage => self.reported_mileage,
-      :crew_size => self.crew_size,
+      :seating_capacity => self.seating_capacity,
       :license_plate => self.license_plate,
       :serial_number => self.serial_number,
       :vehicle_length => self.vehicle_length,
       :gross_vehicle_weight => self.gross_vehicle_weight,
-      :pcnt_capital_responsibility => self.pcnt_capital_responsibility,
       :description => self.description,
       :title_number => self.title_number,
       :title_owner_organization_id => self.title_owner.present? ? self.title_owner.to_s : nil,
@@ -115,8 +115,8 @@ class ServiceVehicle < Asset
   end
 
 
-  def crew_size=(num)
-    self[:crew_size] = sanitize_to_int(num)
+  def seating_capacity=(num)
+    self[:seating_capacity] = sanitize_to_int(num)
   end
 
   # Creates a duplicate that has all asset-specific attributes nilled
@@ -182,10 +182,10 @@ class ServiceVehicle < Asset
     self.description = "#{self.manufacturer.code} #{self.manufacturer_model}" unless self.manufacturer.nil?
   end
 
-  # Set resonable defaults for a new bus
+  # Set resonable defaults for a new service vehicle
   def set_defaults
     super
-    self.crew_size ||= 2
+    self.seating_capacity ||= 2
     self.vehicle_length ||= 0
     self.gross_vehicle_weight ||= 0
     self.asset_type ||= AssetType.find_by_class_name(self.name)

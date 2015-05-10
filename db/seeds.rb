@@ -86,7 +86,6 @@ time_of_day_types = [
 ]
 
 fuel_types = [
-  {:active => 1, :name => 'Unknown',                        :code => 'XX', :description => 'No Fuel type specified.'},
   {:active => 1, :name => 'Biodiesel',                      :code => 'BD', :description => 'Biodiesel.'},
   {:active => 1, :name => 'Bunker Fuel',                    :code => 'BF', :description => 'Bunker Fuel.'},
   {:active => 1, :name => 'Compressed Natural Gas',         :code => 'CN', :description => 'Compressed Natutral Gas.'},
@@ -141,10 +140,13 @@ asset_subtypes = [
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Double Post', :description => 'Double Post'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Support', :name => 'Gantry', :description => 'Gantry'},
 
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Van', :description => 'Van'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Utility Truck', :description => 'Utility Truck'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Pickup Truck',   :description => 'Pickup Truck'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :name => 'Bucket Truck',   :description => 'Bucket Truck'}
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Van', :description => 'Van'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Utility Truck', :description => 'Utility Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Pickup Truck',   :description => 'Pickup Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Bucket Truck',   :description => 'Bucket Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Tower Truck',    :description => 'Tower Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Rack Truck',    :description => 'Rack Truck',
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Other Service Vehicle',    :description => 'Other Service Vehicle'
 
 ]
 
