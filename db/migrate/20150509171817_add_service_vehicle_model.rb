@@ -36,5 +36,16 @@ class AddServiceVehicleModel < ActiveRecord::Migration
     # Add the mileage update event to the asset events tables
     add_column :asset_events, :current_mileage,       :integer
 
+    # Join table for the vehicle crew members
+    create_table :crew_members do |t|
+      t.integer :asset_id,    :null => false
+      t.integer :user_id,     :null => false
+      t.boolean :supervisor,  :null => false
+      t.timestamps
+    end
+
+    add_index :crew_members,   [:asset_id, :user_id], :name => :crew_members_idx1
+    add_index :crew_members,   [:supervisor],         :name => :crew_members_idx2
+
   end
 end

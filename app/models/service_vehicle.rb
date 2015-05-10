@@ -7,9 +7,6 @@
 #-------------------------------------------------------------------------------
 class ServiceVehicle < Asset
 
-  # Enable auditing of this model type. Only monitor update and destroy events
-  has_paper_trail :on => [:update, :destroy]
-
   # Callbacks
   after_initialize    :set_defaults
   before_validation   :set_description
@@ -32,6 +29,10 @@ class ServiceVehicle < Asset
 
   # Each service vehicle has a set (0 or more) of vehicle features
   has_and_belongs_to_many   :vehicle_features,    :foreign_key => 'asset_id'
+
+  # Each service vehicle has a crew that is assigned to it
+  has_many    :crew_members,  :foreign_key => :asset_id, :dependent => :destroy
+  has_many    :users, :through => :crew_members
 
   #-----------------------------------------------------------------------------
   # Service Vehicle Physical Characteristics
@@ -96,6 +97,18 @@ class ServiceVehicle < Asset
   # Instance Methods
   #
   #-----------------------------------------------------------------------------
+
+  # Crew members not including the supervisor
+  def crew
+    a = []
+    crew_members.crew.each {|x| a << x.user}
+    a
+  end
+
+  # Returns the crew member who is designated as the supervisor
+  def supervisor
+    crew_members.supervisors.first.user unless crew_members.supervisors.empty?
+  end
 
   # Render the asset as a JSON object -- overrides the default json encoding
   def as_json(options={})
@@ -173,7 +186,7 @@ class ServiceVehicle < Asset
   def cost
     purchase_cost
   end
-  
+
   #-----------------------------------------------------------------------------
   #
   # Protected Methods
