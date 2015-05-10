@@ -111,6 +111,7 @@ vehicle_features = [
   {:active => 1, :name => 'WIFI',                 :code => 'WI', :description => 'WIFI.'}
 ]
 
+
 #------------------------------------------------------------------------------
 #
 # Sign Taxonomy
@@ -148,6 +149,17 @@ asset_subtypes = [
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Rack Truck',    :description => 'Rack Truck',
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Other Service Vehicle',    :description => 'Other Service Vehicle'
 
+]
+
+policy_items = [
+  # Service Vehicles
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Van',                    :max_service_life_months => 12*5, :replacement_cost => 25000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Utility Truck',          :max_service_life_months => 12*5, :replacement_cost => 45000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Pickup Truck',           :max_service_life_months => 12*5, :replacement_cost => 35000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Bucket Truck',           :max_service_life_months => 12*5, :replacement_cost => 125000,  :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Tower Truck',            :max_service_life_months => 12*5, :replacement_cost => 150000,  :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Rack Truck',             :max_service_life_months => 12*5, :replacement_cost => 55000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
+  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Other Service Vehicle',  :max_service_life_months => 12*5, :replacement_cost => 35000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0}
 ]
 
 puts "======= Processing TransAM Sign Lookup Tables  ======="

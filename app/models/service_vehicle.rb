@@ -170,6 +170,10 @@ class ServiceVehicle < Asset
 
   end
 
+  def cost
+    purchase_cost
+  end
+  
   #-----------------------------------------------------------------------------
   #
   # Protected Methods
