@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Traffic Sign Extensions for TransAM."
   s.license     = "MIT"
 
-  s.metadata = { "load_order" => "10" }
+  s.metadata = { "load_order" => "2" }
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
 

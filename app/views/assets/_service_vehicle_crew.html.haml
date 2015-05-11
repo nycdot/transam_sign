@@ -1,0 +1,31 @@
+:ruby
+  table_dom_id = SecureRandom.hex
+
+%table.table.table-hover{:id => table_dom_id, :data => {:toggle => 'table',
+  :show_export => 'false',
+  :show_columns => 'false',
+  :show_toggle => 'false'}}
+  %thead
+    %tr
+      %th.left{:data => {:sortable => 'true'}} ID
+      %th.left{:data => {:sortable => 'true'}} Organization
+      %th.center Supr
+      %th.left.nowrap{:data => {:sortable => 'true'}} Title
+      %th.left.nowrap{:data => {:sortable => 'true'}} First
+      %th.left.nowrap{:data => {:sortable => 'true'}} Last
+      %th.left.nowrap{:data => {:sortable => 'true'}} Email
+      %th.left.nowrap{:data => {:sortable => 'true'}} Phone
+  %tbody
+    - service_vehicle.crew_members.each do |crew_member|
+      - user = crew_member.user
+      %tr{:id => user.object_key, :class => 'action-path'}
+        %td= user.external_id
+        %td= user.organization.short_name
+        %td.center= format_as_boolean(crew_member.supervisor?)
+        %td= user.title
+        %td= user.first_name
+        %td= user.last_name
+        %td= user.email
+        %td= format_as_phone_number(user.phone)
+
+= render :partial => 'shared/table_scripts', :locals => {:table_id => table_dom_id, :path_pattern => user_path("xxx")}
