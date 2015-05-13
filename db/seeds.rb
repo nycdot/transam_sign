@@ -124,7 +124,7 @@ vehicle_features = [
 
 asset_types = [
   {:active => 1, :name => 'Sign',             :description => 'Sign',                 :class_name => 'Sign',            :map_icon_name => "redDotIcon",    :display_icon_name => "fa fa-warning"},
-  {:active => 1, :name => 'Support',          :description => 'Support Structrure',   :class_name => 'Support',         :map_icon_name => "greenDotIcon",  :display_icon_name => "fa fa-warning"}
+  {:active => 1, :name => 'Support',          :description => 'Support Structrure',   :class_name => 'Support',         :map_icon_name => "greenDotIcon",  :display_icon_name => "fa fa-warning"},
   {:active => 1, :name => 'Service Vehicle',  :description => 'Service Vehicle',      :class_name => 'ServiceVehicle',  :map_icon_name => "blueDotIcon",   :display_icon_name => "fa fa-truck"}
 ]
 
@@ -146,23 +146,23 @@ asset_subtypes = [
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Pickup Truck',   :description => 'Pickup Truck'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Bucket Truck',   :description => 'Bucket Truck'},
   {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Tower Truck',    :description => 'Tower Truck'},
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Rack Truck',    :description => 'Rack Truck',
-  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Other Service Vehicle',    :description => 'Other Service Vehicle'
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Rack Truck',    :description => 'Rack Truck'},
+  {:active => 1, :belongs_to => 'asset_type',  :type => 'Service Vehicle', :icon => 'yellowDotIcon', :name => 'Other Service Vehicle',    :description => 'Other Service Vehicle'}
 
 ]
 
-policy_items = [
-  # Service Vehicles
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Van',                    :max_service_life_months => 12*5, :replacement_cost => 25000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Utility Truck',          :max_service_life_months => 12*5, :replacement_cost => 45000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Pickup Truck',           :max_service_life_months => 12*5, :replacement_cost => 35000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Bucket Truck',           :max_service_life_months => 12*5, :replacement_cost => 125000,  :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Tower Truck',            :max_service_life_months => 12*5, :replacement_cost => 150000,  :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Rack Truck',             :max_service_life_months => 12*5, :replacement_cost => 55000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0},
-  {:active => 1, :policy_id => 1, :asset_type => 'Service Vehicles',  :asset_subtype => 'Other Service Vehicle',  :max_service_life_months => 12*5, :replacement_cost => 35000,   :pcnt_residual_value => 0, :rehabilitation_cost => 10000, :extended_service_life_months => 12*0}
+asset_event_types = [
+  {:active => 1, :name => 'Update the mileage',       :display_icon_name => "fa fa-road",       :description => 'Mileage Update',       :class_name => 'MileageUpdateEvent',      :job_name => 'AssetMileageUpdateJob'},
 ]
 
 puts "======= Processing TransAM Sign Lookup Tables  ======="
+
+puts '  Loading Asset Event Types'
+asset_event_types.each do |row_hash|
+  x = AssetEventType.new(row_hash)
+  x.save!
+end
+
 
 lookup_tables = %w{ blank_types color_types direction_types support_size_types support_types service_life_calculation_types sheeting_types side_types time_of_day_types fuel_types vehicle_features }
 
