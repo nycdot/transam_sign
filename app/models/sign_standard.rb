@@ -152,7 +152,7 @@ class SignStandard < ActiveRecord::Base
 
   # Provide a SMO description
   def description
-    "#{smo_code} #{size_description} #{sign_description}"
+    "#{smo_code}  #{sign_description}"
   end
 
   # Override the name property
