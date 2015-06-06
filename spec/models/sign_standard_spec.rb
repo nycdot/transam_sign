@@ -56,7 +56,7 @@ RSpec.describe SignStandard, :type => :model do
 
   describe '#description' do
     it 'should be a standard SMO description' do
-      expect(test_sign_standard.description).to eq("R-116 24 x 36 Railroad crossing sign")
+      expect(test_sign_standard.description).to eq("R-116  Railroad crossing sign")
     end
   end
 
