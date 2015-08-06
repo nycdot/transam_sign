@@ -27,6 +27,7 @@ FactoryGirl.define do
     association :facing_direction_type, :factory => :direction_type
     association :side_of_road_type, :factory => :side_type
     street_name "123 Main St"
+    expected_useful_life 120
   end
 
 end
