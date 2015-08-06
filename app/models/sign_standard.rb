@@ -141,6 +141,10 @@ class SignStandard < ActiveRecord::Base
     end
   end
 
+  def one_way_sign?
+    (sign_standard_type_id == 42)
+  end
+
   def legend
     sign_description
   end
