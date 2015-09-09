@@ -25,23 +25,6 @@ module TransamSignAsset
     # Validations
     # ----------------------------------------------------
 
-    #------------------------------------------------------------------------------
-    # Lists. These lists are used by derived classes to make up lists of attributes
-    # that can be used for operations like full text search etc. Each derived class
-    # can add their own fields to the list
-    #------------------------------------------------------------------------------
-
-    SEARCHABLE_FIELDS = [
-    ]
-    CLEANSABLE_FIELDS = [
-    ]
-    UPDATE_METHODS = [
-    ]
-
-    # List of hash parameters specific to this class that are allowed by the controller
-    FORM_PARAMS = [
-    ]
-
   end
 
   #------------------------------------------------------------------------------
@@ -52,9 +35,8 @@ module TransamSignAsset
 
   module ClassMethods
     def self.allowable_params
-      FORM_PARAMS
+      []
     end
-
   end
 
   #------------------------------------------------------------------------------
@@ -65,7 +47,7 @@ module TransamSignAsset
   def searchable_fields
     a = []
     a << super
-    SEARCHABLE_FIELDS.each do |field|
+    [].each do |field|
       a << field
     end
     a.flatten
@@ -74,7 +56,7 @@ module TransamSignAsset
   def cleansable_fields
     a = []
     a << super
-    CLEANSABLE_FIELDS.each do |field|
+    [].each do |field|
       a << field
     end
     a.flatten
@@ -83,7 +65,7 @@ module TransamSignAsset
   def update_methods
     a = []
     a << super
-    UPDATE_METHODS.each do |method|
+    [].each do |method|
       a << method
     end
     a.flatten
@@ -92,6 +74,6 @@ module TransamSignAsset
   protected
 
   def set_defaults
-
+    super
   end
 end
