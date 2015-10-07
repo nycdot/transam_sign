@@ -153,7 +153,7 @@ asset_subtypes = [
 ]
 
 asset_event_types = [
-  {:active => 1, :name => 'Update the mileage',       :display_icon_name => "fa fa-road",       :description => 'Mileage Update',       :class_name => 'MileageUpdateEvent',      :job_name => 'AssetMileageUpdateJob'},
+  {:active => 1, :name => 'Update the mileage', :display_icon_name => "fa fa-building",       :description => 'Mileage Update',       :class_name => 'MileageUpdateEvent',      :job_name => 'AssetMileageUpdateJob'},
 ]
 
 puts "======= Processing TransAM Sign Lookup Tables  ======="

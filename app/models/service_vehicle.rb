@@ -54,42 +54,24 @@ class ServiceVehicle < Asset
   default_scope { where(:asset_type_id => AssetType.find_by_class_name(self.name).id) }
 
   #-----------------------------------------------------------------------------
-  # Lists. These lists are used by derived classes to make up lists of attributes
-  # that can be used for operations like full text search etc. Each derived class
-  # can add their own fields to the list
-  #-----------------------------------------------------------------------------
-
-  SEARCHABLE_FIELDS = [
-    'license_plate',
-    'serial_number'
-  ]
-  CLEANSABLE_FIELDS = [
-    'license_plate',
-    'serial_number'
-  ]
-  UPDATE_METHODS = [
-    :update_mileage
-  ]
-
-  # List of hash parameters specific to this class that are allowed by the controller
-  FORM_PARAMS = [
-    :seating_capacity,
-    :license_plate,
-    :serial_number,
-    :gross_vehicle_weight
-  ]
-
-  #-----------------------------------------------------------------------------
   #
   # Class Methods
   #
   #-----------------------------------------------------------------------------
 
   def self.allowable_params
-    FORM_PARAMS
+    [
+      :seating_capacity,
+      :license_plate,
+      :serial_number,
+      :crew_size,
+      :gross_vehicle_weight
+    ]
   end
   def self.update_methods
-    UPDATE_METHODS
+    [
+      :update_mileage
+    ]
   end
 
   #-----------------------------------------------------------------------------
@@ -142,18 +124,21 @@ class ServiceVehicle < Asset
   def searchable_fields
     a = []
     a << super
-    SEARCHABLE_FIELDS.each do |field|
-      a << field
-    end
+    a += ['license_plate', 'serial_number']
     a.flatten
   end
 
   def cleansable_fields
     a = []
     a << super
-    CLEANSABLE_FIELDS.each do |field|
-      a << field
-    end
+    a += ['license_plate','serial_number']
+    a.flatten
+  end
+
+  def update_methods
+    a = []
+    a << super
+    a += [:update_mileage]
     a.flatten
   end
 
@@ -205,6 +190,7 @@ class ServiceVehicle < Asset
     self.seating_capacity ||= 2
     self.vehicle_length ||= 0
     self.gross_vehicle_weight ||= 0
+    self.crew_size ||= 2
     self.asset_type ||= AssetType.find_by_class_name(self.name)
   end
 
