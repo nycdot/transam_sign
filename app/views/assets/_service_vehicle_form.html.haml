@@ -3,7 +3,7 @@
   :as => :asset,
   :url => @asset.new_record? ? inventory_index_path : inventory_path,
   :method => @asset.new_record? ? 'post' : 'put',
-  :html => {:class => 'form-vertical'},
+  :html => {:class => 'form-vertical', :id => 'service_vehicle_form'},
   :wrapper => :vertical_form,
   :wrapper_mappings => {:check_boxes => :vertical_radio_and_checkboxes,
     :radio_buttons => :vertical_radio_and_checkboxes,
@@ -14,32 +14,32 @@
 
     .col-md-4
       = dialog_tag('Vehicle Type', {:icon => 'fa fa-refresh', :class => "form_part"}) do
-        = f.input :asset_tag, :prompt => "Enter the asset tag...", :label => "Asset Tag"
-        = f.input :external_id, :prompt => "Enter any external ID...", :label => "External ID"
-        = f.association :manufacturer, :prompt => "Select manufacturer...", :collection => Manufacturer.active_for_asset_type(@asset.asset_type)
-        = f.input :manufacturer_model, :prompt => "Enter manufacturer model...", :label => "Manufacturer Model"
-        = f.input :manufacture_year, :label => "Manufacture Year"
-        = f.input :serial_number, :label => "VIN"
-        = f.input :license_plate, :label => "License Plate"
+        = f.input :asset_tag, :prompt => "Enter the asset tag...", :label => "Asset Tag", :required => true, :required => true, :input_html => { :maxlength => 32 }
+        = f.input :external_id, :prompt => "Enter any external ID...", :label => "External ID", :input_html => { :maxlength => 32 }
+        = f.association :manufacturer, :prompt => "Select manufacturer...", :collection => Manufacturer.active_for_asset_type(@asset.asset_type), :required => true
+        = f.input :manufacturer_model, :prompt => "Enter manufacturer model...", :label => "Manufacturer Model", :required => true, :input_html => { :maxlength => 128 }
+        = f.input :manufacture_year, :label => "Manufacture Year", :as => :integer, :required => true, :input_html => { :min => SystemConfig.instance.epoch }
+        = f.input :serial_number, :label => "VIN", :required => true, :input_html => { :maxlength => 32 }
+        = f.input :license_plate, :label => "License Plate", :required => true, :input_html => { :maxlength => 12 }
     .col-md-4
       = dialog_tag('Characteristics', {:icon => 'fa fa-refresh', :class => "form_part"}) do
-        = f.association :fuel_type, :prompt => "Select type of fuel...", :label => "Fuel Type"
-        = f.input :gross_vehicle_weight, :label => "Gross Vehicle Weight (lbs)"
-        = f.input :crew_size, :label => "Crew Size"
+        = f.association :fuel_type, :prompt => "Select type of fuel...", :label => "Fuel Type", :required => true
+        = f.input :gross_vehicle_weight, :label => "Gross Vehicle Weight (lbs)", :as => :integer, :input_html => { :min => 0 }
+        = f.input :crew_size, :label => "Crew Size", :as => :integer, :input_html => { :min => 0 }
         = f.association :vehicle_features, :as => :check_boxes, :label => "Vehicle Features"
     .col-md-4
       = dialog_tag('Purchase', {:icon => 'fa fa-refresh', :class => "form_part"}) do
 
-        = f.input :title_number, :label => "Title Number"
-        = f.association :title_owner, :collection => current_user.organizations, :label => "Title Owner"
+        = f.input :title_number, :label => "Title Number", :input_html => { :maxlength => 32 }
+        = f.association :title_owner, :collection => current_user.organizations, :label => "Title Owner", :required => true
 
         = f.input :purchase_cost, :wrapper=> :vertical_prepend, :label => "Purchase Cost" do
           %span.input-group-addon
             %i.fa.fa-usd
-          = f.input_field :purchase_cost, :class => "form-control"
+          = f.input_field :purchase_cost, :class => "form-control", :required => true, :min => 0
 
         = f.input :purchase_date, :wrapper => :vertical_append, :label => "Purchase Date" do
-          = f.input_field :purchase_date, :as => :string, :class => 'form-control datepicker', :data => {'behavior' => 'datepicker'}, :value => format_as_date(f.object.purchase_date)
+          = f.input_field :purchase_date, :as => :string, :class => 'form-control datepicker', :data => {'behavior' => 'datepicker'}, :value => format_as_date(f.object.purchase_date), :required => true
           %span.input-group-addon
             %i.fa.fa-calendar
 
@@ -56,7 +56,7 @@
         = f.input :purchased_new, :as => :radio_buttons, :label => "Purchased New"
         = f.input :vendor_id, :as => :hidden
         = f.input :vendor_name, :label => 'Vendor', :input_html => {:autocomplete => 'off', :class => 'form-control', :placeholder => 'Enter vendor name', :id => 'vendor_name', :data => {:url => filter_vendors_path}}
-        = f.input :expected_useful_life,  :label => "Expected Useful Life",   :collection => get_max_useful_years_collection
+        = f.input :expected_useful_life,  :label => "Expected Useful Life",   :collection => get_max_useful_years_collection, :required => true
 
     .col-md-12
       = f.button :submit, :class => 'btn btn-primary'
@@ -88,4 +88,10 @@
         return item.name;
       }
     });
+  });
+
+  $('#service_vehicle_form').validate({
+    submitHandler: function(form) {
+      form.submit();
+    }
   });
