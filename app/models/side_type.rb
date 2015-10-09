@@ -5,7 +5,7 @@ class SideType < ActiveRecord::Base
   scope :active, -> { where(active: true) }
 
   def to_s
-    name
+    code
   end
 
 end
