@@ -32,7 +32,6 @@ class ServiceVehicle < Asset
 
   # Each service vehicle has a crew that is assigned to it
   has_many    :crew_members,  :foreign_key => :asset_id, :dependent => :destroy
-  has_many    :users, :through => :crew_members
 
   #-----------------------------------------------------------------------------
   # Service Vehicle Physical Characteristics
@@ -97,6 +96,7 @@ class ServiceVehicle < Asset
     super.merge(
     {
       :reported_mileage => self.reported_mileage,
+      :crew_size => self.crew_size,
       :seating_capacity => self.seating_capacity,
       :license_plate => self.license_plate,
       :serial_number => self.serial_number,
