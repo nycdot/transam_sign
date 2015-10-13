@@ -64,7 +64,11 @@ class ServiceVehicle < Asset
       :license_plate,
       :serial_number,
       :crew_size,
-      :gross_vehicle_weight
+      :gross_vehicle_weight,
+      :fuel_type_id,
+      :title_number,
+      :title_owner_organization_id,
+      :vehicle_feature_ids => []
     ]
   end
   def self.update_methods
