@@ -126,6 +126,17 @@ class Sign < Asset
   #
   #------------------------------------------------------------------------------
 
+  # Override the age calculation. If a sign has been refaced (rehabilitated) it
+  # resets the clock
+  def age(on_date=Date.today)
+    if date_last_rehabilitated.nil?
+      age_in_years = months_in_service(on_date) / 12.0
+    else
+      age_in_years = months_since_rehabilitation(on_date) / 12.0
+    end
+    [(age_in_years).floor, 0].max
+  end
+
   def smo
     sign_standard.smo_code unless sign_standard.blank?
   end
@@ -135,7 +146,7 @@ class Sign < Asset
   def size
     sign_standard.size_description unless sign_standard.blank?
   end
-  
+
   def description
     sign_standard.to_s
   end
