@@ -129,7 +129,7 @@ class Sign < Asset
   # Override the age calculation. If a sign has been refaced (rehabilitated) it
   # resets the clock
   def age(on_date=Date.today)
-    if date_last_rehabilitated.nil?
+    if last_rehabilitation_date.nil?
       age_in_years = months_in_service(on_date) / 12.0
     else
       age_in_years = months_since_rehabilitation(on_date) / 12.0
