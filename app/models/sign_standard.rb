@@ -182,6 +182,7 @@ class SignStandard < ActiveRecord::Base
 
   # Set resonable defaults for a new generic sign
   def set_defaults
+    self.imagepath ||= Rails.application.config.missing_sign_image
   end
 
 end
