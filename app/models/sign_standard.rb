@@ -83,10 +83,9 @@ class SignStandard < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = [
     :smo_code,
-    :asset_subtype,
     :sign_standard_type,
-    :size_text,
-    :sign_text
+    :size_description,
+    :sign_description
   ]
 
   #------------------------------------------------------------------------------
@@ -165,12 +164,7 @@ class SignStandard < ActiveRecord::Base
   end
 
   def searchable_fields
-    a = []
-    a << super
-    SEARCHABLE_FIELDS.each do |field|
-      a << field
-    end
-    a.flatten
+    SEARCHABLE_FIELDS
   end
 
   #------------------------------------------------------------------------------
