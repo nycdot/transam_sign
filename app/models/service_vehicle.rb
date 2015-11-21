@@ -128,14 +128,14 @@ class ServiceVehicle < Asset
   def searchable_fields
     a = []
     a << super
-    a += ['license_plate', 'serial_number']
+    a += [:license_plate,:serial_number]
     a.flatten
   end
 
   def cleansable_fields
     a = []
     a << super
-    a += ['license_plate','serial_number']
+    a += [:license_plate,:serial_number]
     a.flatten
   end
 
