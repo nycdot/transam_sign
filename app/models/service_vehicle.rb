@@ -7,6 +7,9 @@
 #-------------------------------------------------------------------------------
 class ServiceVehicle < Asset
 
+  # Include the maintenance asset mixin
+  include MaintainableAsset
+
   # Callbacks
   after_initialize    :set_defaults
   before_validation   :set_description
