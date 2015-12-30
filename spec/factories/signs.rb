@@ -17,15 +17,15 @@ FactoryGirl.define do
 
   factory :sign, :class => :sign do
     basic_asset_attributes
-    association :asset_type
-    association :asset_subtype
+    asset_type_id 1
+    asset_subtype_id 1
     purchase_cost 2000.0
     association :sign_standard
-    association :sheeting_type
-    association :blank_type
-    association :travel_direction_type, :factory => :direction_type
-    association :facing_direction_type, :factory => :direction_type
-    association :side_of_road_type, :factory => :side_type
+    sheeting_type_id 1
+    blank_type_id 1
+    travel_direction_type_id 1
+    facing_direction_type_id 1
+    side_of_road_type_id 1
     street_name "123 Main St"
     expected_useful_life 120
   end
