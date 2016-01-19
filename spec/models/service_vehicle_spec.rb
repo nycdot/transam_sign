@@ -178,7 +178,13 @@ RSpec.describe ServiceVehicle, :type => :model do
     expect(test_service_vehicle.update_methods).to include(:update_mileage)
   end
   it '.update_mileage' do
-
+    test_service_vehicle = create(:service_vehicle)
+    test_service_vehicle.mileage_updates.create!(attributes_for(:mileage_update_event))
+    test_service_vehicle.update_mileage
+    expect(test_service_vehicle.mileage_updates.count).to eql(1)
+    test_service_vehicle.reload
+    expect(test_service_vehicle.reported_mileage_date).to eql(Date.today)
+    expect(test_service_vehicle.reported_mileage).to eql(100000)
   end
 
   it '.cost' do
