@@ -6,20 +6,25 @@ RSpec.describe SignStandard, :type => :model do
   let(:test_sign_standard)      { build_stubbed(:sign_standard) }
   let(:persisted_sign_standard) { create(:sign_standard) }
 
-  #------------------------------------------------------------------------------
-  #
-  # Class Methods
-  #
-  #------------------------------------------------------------------------------
+  describe 'associations' do
+    it 'has many signs' do
+      expect(test_sign_standard).to have_many(:signs)
+    end
+    it 'can have a superseded standard' do
+      expect(test_sign_standard).to belong_to(:superseded_by)
+    end
+    it 'has an asset subtype' do
+      expect(test_sign_standard).to belong_to(:asset_subtype)
+    end
+    it 'has a type' do
+      expect(test_sign_standard).to belong_to(:sign_standard_type)
+    end
+    it 'has many comments' do
+      expect(test_sign_standard).to have_many(:comments)
+    end
+  end
 
-
-  #------------------------------------------------------------------------------
-  #
-  # Instance Methods
-  #
-  #------------------------------------------------------------------------------
-
-  describe '#validates' do
+  describe 'validations' do
     it 'should have a SMO code' do
       persisted_sign_standard.smo_code = nil
       expect(persisted_sign_standard).not_to be_valid
@@ -54,13 +59,51 @@ RSpec.describe SignStandard, :type => :model do
 
   end
 
-  describe '#description' do
-    it 'should be a standard SMO description' do
-      expect(test_sign_standard.description).to eq("R-116  Railroad crossing sign")
+  #------------------------------------------------------------------------------
+  #
+  # Class Methods
+  #
+  #------------------------------------------------------------------------------
+
+  it '#allowable_params' do
+    expect(SignStandard.allowable_params).to eq([
+      :smo_code,
+      :asset_subtype_id,
+      :sign_standard_type_id,
+      :size_description,
+      :sign_description,
+      :superseded_by_id,
+      :voided_on_date,
+      :new_comment,
+      :replace_smo
+    ])
+  end
+  describe '#active' do
+    it 'no voided date' do
+      test_standard = create(:sign_standard)
+      expect(SignStandard.active).to include(test_standard)
+    end
+    it 'voided date' do
+      test_standard1 = create(:sign_standard, :voided_on_date => Date.today)
+      test_standard2 = create(:sign_standard, :voided_on_date => Date.today+1.day)
+
+      expect(SignStandard.active).not_to include(test_standard1)
+      expect(SignStandard.active).to include(test_standard2)
     end
   end
 
-  describe '#deprecated?' do
+  #------------------------------------------------------------------------------
+  #
+  # Instance Methods
+  #
+  #------------------------------------------------------------------------------
+
+  it '.superseded_smo' do
+    current_standard = create(:sign_standard)
+    superseded_standard = create(:sign_standard, :superseded_by => current_standard)
+    expect(current_standard.superseded_smo).to eq(superseded_standard)
+  end
+  describe '.deprecated?' do
     it 'should be false by default' do
       expect(test_sign_standard.deprecated?).to be false
     end
@@ -70,7 +113,58 @@ RSpec.describe SignStandard, :type => :model do
       expect(test_sign_standard.deprecated?).to be true
     end
   end
+  describe '.deleteable?' do
+    it 'special' do
+      test_sign_standard.smo_code = 'SPECIAL'
+      expect(test_sign_standard.deleteable?).to be false
+    end
+    it 'has signs' do
+      create(:sign, :sign_standard => persisted_sign_standard)
+      expect(persisted_sign_standard.deleteable?).to be false
+    end
+    it 'elsewise' do
+      expect(test_sign_standard.deleteable?).to be true
+    end
+  end
+  describe '.voided?' do
+    it 'no date' do
+      expect(test_sign_standard.voided?).to be false
+    end
+    it 'date' do
+      test_sign_standard.voided_on_date = Date.today
+      expect(test_sign_standard.voided?).to be true
+    end
+  end
+  it '.one_way_sign?' do
+    expect(test_sign_standard.one_way_sign?).to be false
+    test_sign_standard.sign_standard_type_id = 42
+    expect(test_sign_standard.one_way_sign?).to be true
+  end
+  it '.legend' do
+    expect(test_sign_standard.legend).to eq(test_sign_standard.sign_description)
+  end
+  it '.to_s' do
+    expect(test_sign_standard.to_s).to eq(test_sign_standard.name)
+  end
+  describe '.description' do
+    it 'should be a standard SMO description' do
+      expect(test_sign_standard.description).to eq("R-116  Railroad crossing sign")
+    end
+  end
+  it '.name' do
+    expect(test_sign_standard.name).to eq(test_sign_standard.description)
+  end
+  it '.searchable_fields' do
+    expect(test_sign_standard.searchable_fields).to eq([
+      :smo_code,
+      :sign_standard_type,
+      :size_description,
+      :sign_description
+    ])
+  end
 
-
+  it '.set_defaults' do
+    expect(SignStandard.new.imagepath).to eq(Rails.application.config.missing_sign_image)
+  end
 
 end
