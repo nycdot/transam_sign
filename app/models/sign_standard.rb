@@ -99,7 +99,7 @@ class SignStandard < ActiveRecord::Base
   end
 
   def self.active
-    where('voided_on_date IS NULL OR voided_on_date < ?', Date.today)
+    where('voided_on_date IS NULL OR voided_on_date > ?', Date.today)
   end
 
   #------------------------------------------------------------------------------
