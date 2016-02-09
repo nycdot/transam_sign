@@ -1,9 +1,6 @@
 source "https://rubygems.org"
 
-# Declare your gem's dependencies in transam_spatial.gemspec.
-# Bundler will treat runtime dependencies like base dependencies, and
-# development dependencies will be added by default to the :development group.
-gemspec
+
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
@@ -17,3 +14,8 @@ gem 'transam_spatial', :github => "camsys/transam_spatial", branch: :master
 gem 'mysql2', '~> 0.3.20' # lock gem for dummy app
 gem "codeclimate-test-reporter", require: nil
 gem 'simplecov', :require => false
+
+# Declare your gem's dependencies in transam_spatial.gemspec.
+# Bundler will treat runtime dependencies like base dependencies, and
+# development dependencies will be added by default to the :development group.
+gemspec
