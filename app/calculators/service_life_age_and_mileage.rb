@@ -17,8 +17,8 @@ class ServiceLifeAgeAndMileage < ServiceLifeCalculator
     # get the predicted last year of service based on the asset mileage if vehicle
     last_year_by_mileage = by_mileage(asset)
 
-    # return the minimum of the two
-    [last_year_by_age, last_year_by_mileage].min
+    # return the max of the two
+    [last_year_by_age, last_year_by_mileage].max
   end
 
   protected
