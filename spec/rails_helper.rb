@@ -5,7 +5,10 @@ require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
 
 require 'simplecov'
-SimpleCov.start 'rails'
+SimpleCov.start 'rails' do
+  add_group "Calculators", "app/calculators"
+  add_group "Jobs", "app/jobs"
+end
 
 require 'spec_helper'
 require File.expand_path("../dummy/config/environment", __FILE__)
