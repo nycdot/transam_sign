@@ -12,8 +12,6 @@ source "https://rubygems.org"
 gem 'transam_core', :github => 'camsys/transam_core'
 gem 'transam_spatial', :github => "camsys/transam_spatial", branch: :master
 gem 'mysql2', '~> 0.3.20' # lock gem for dummy app
-gem "codeclimate-test-reporter", require: nil
-gem 'simplecov', :require => false
 
 # Declare your gem's dependencies in transam_spatial.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
