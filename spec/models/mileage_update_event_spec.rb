@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe MileageUpdateEvent, :type => :model do
 
-  class TestOrg < Organization
-    def get_policy
-      return Policy.where("`organization_id` = ?",self.id).order('created_at').last
-    end
-  end
-
   let(:test_event) { create(:mileage_update_event) }
 
   before(:each) do

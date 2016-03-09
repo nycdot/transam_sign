@@ -42,3 +42,10 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# declare concrete Organization class for tests
+class TestOrg < Organization
+  def get_policy
+    return Policy.where("`organization_id` = ?",self.id).order('created_at').last
+  end
+end
