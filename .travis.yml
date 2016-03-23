@@ -6,8 +6,6 @@ branches:
   - master
 before_install:
 - mysql -e "create database IF NOT EXISTS transam_sign_testing;" -uroot
-- openssl aes-256-cbc -K $encrypted_d73a851893ae_key -iv $encrypted_d73a851893ae_iv
-  -in spec/dummy/db/schema.rb.enc -out spec/dummy/db/schema.rb -d
 addons:
   code_climate:
     repo_token: ef1a90c2630dc2980f6dc23f2d4db795b5dcf4317617ba2474a60fb9afbf228d
