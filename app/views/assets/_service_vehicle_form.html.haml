@@ -14,7 +14,7 @@
 
     .col-md-4
       = dialog_tag('Vehicle Type', {:icon => 'fa fa-refresh', :class => "form_part"}) do
-        = f.input :asset_tag, :prompt => "Enter the asset tag...", :label => "Asset Tag", :required => true, :required => true, :input_html => { :maxlength => 32 }
+        = f.input :asset_tag, :prompt => "Enter the asset tag...", :label => "Asset Tag", :required => true, :input_html => { :maxlength => 12 }
         = f.input :external_id, :prompt => "Enter any external ID...", :label => "External ID", :input_html => { :maxlength => 32 }
         = f.association :manufacturer, :prompt => "Select manufacturer...", :collection => Manufacturer.active_for_asset_type(@asset.asset_type), :required => true
         = f.input :manufacturer_model, :prompt => "Enter manufacturer model...", :label => "Manufacturer Model", :required => true, :input_html => { :maxlength => 128 }
@@ -53,10 +53,10 @@
           %span.input-group-addon
             %i.fa.fa-calendar
 
-        = f.input :purchased_new, :as => :radio_buttons, :label => "Purchased New"
+        = f.input :purchased_new, :as => :radio_buttons, :label => "Purchased New", :required => true
         = f.input :vendor_id, :as => :hidden
         = f.input :vendor_name, :label => 'Vendor', :input_html => {:autocomplete => 'off', :class => 'form-control', :placeholder => 'Enter vendor name', :id => 'vendor_name', :data => {:url => filter_vendors_path}}
-        = f.input :expected_useful_life,  :label => "Expected Useful Life",   :collection => get_max_useful_years_collection, :required => true
+        = f.input :expected_useful_life, :as => :hidden, :value => 0
 
     .col-md-12
       = f.button :submit, :class => 'btn btn-primary'
