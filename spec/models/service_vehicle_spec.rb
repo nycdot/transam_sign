@@ -197,7 +197,7 @@ RSpec.describe ServiceVehicle, :type => :model do
   it '.set_defaults' do
     test_vehicle = ServiceVehicle.new
     expect(test_vehicle.seating_capacity).to eq(2)
-    expect(test_vehicle.vehicle_length).to eq(0)
+    expect(test_vehicle.vehicle_length).to eq(1)
     expect(test_vehicle.gross_vehicle_weight).to eq(0)
     expect(test_vehicle.crew_size).to eq(2)
     expect(test_vehicle.asset_type).to eq(AssetType.find_by(:class_name => 'ServiceVehicle'))

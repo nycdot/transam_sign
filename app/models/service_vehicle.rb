@@ -214,7 +214,7 @@ class ServiceVehicle < Asset
   def set_defaults
     super
     self.seating_capacity ||= 2
-    self.vehicle_length ||= 0
+    self.vehicle_length ||= 1
     self.gross_vehicle_weight ||= 0
     self.crew_size ||= 2
     self.asset_type ||= AssetType.find_by_class_name(self.name)
