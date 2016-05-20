@@ -57,7 +57,7 @@ class SignStandard < ActiveRecord::Base
   # ----------------------------------------------------
   # Validations
   # ----------------------------------------------------
-  validates   :smo_code,            :length => { :in => 1..16 }, :uniqueness => true
+  validates   :smo_code,            :length => { :in => 1..16 }
   validates   :size_description,    :length => { :in => 1..16 }
   validates   :sign_description,    :length => { :in => 1..254 }
   validates   :asset_subtype,       :presence => true
