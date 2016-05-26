@@ -27,8 +27,6 @@
         = f.input :gross_vehicle_weight, :label => "Gross Vehicle Weight (lbs)", :as => :integer, :input_html => { :min => 0 }
         = f.input :crew_size, :label => "Crew Size", :as => :integer, :input_html => { :min => 0 }
         = f.association :vehicle_features, :as => :check_boxes, :label => "Vehicle Features"
-        - if @asset.disposition_type == DispositionType.find_by(name: 'Transferred')
-          = f.input :service_status_type_id, :collection => ServiceStatusType.active, :label => "Service Status Type", :include_blank => false
     .col-md-4
       = dialog_tag('Purchase', {:icon => 'fa fa-refresh', :class => "form_part"}) do
 
