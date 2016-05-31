@@ -15,6 +15,7 @@ class Sign < Asset
   # Callbacks
   # ----------------------------------------------------
   after_initialize :set_defaults
+  before_update   :update_if_was_on_same_support, :except => :create
 
   # ----------------------------------------------------
   # Associations
@@ -226,6 +227,16 @@ class Sign < Asset
     super
     self.distance_from_intersection ||= 0
     self.lateral_offset ||= 0
+  end
+
+  # was_on_same_support: flag if current sign's previous support type was SAME
+  def update_if_was_on_same_support
+    # was_on_same_support: is only updated behind-the-scene as part of sign deleting process
+    #   e.g., two signs share same support, first with 'DR' and second with 'SAME', user deleted 'DR' sign,
+    #         so second sign support changes from 'SAME' to 'DR', at this moment the system would 
+    #         mark :was_on_same_support as true; then if user directly changes the sign support from `DR` 
+    #         to anything else, system would reset :was_on_same_support as false.
+    self.was_on_same_support = false if self.changes.include?(:support_type_id) && !self.changes.include?(:was_on_same_support)
   end
 
 end
