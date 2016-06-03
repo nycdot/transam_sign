@@ -237,6 +237,9 @@ class Sign < Asset
     #         mark :was_on_same_support as true; then if user directly changes the sign support from `DR` 
     #         to anything else, system would reset :was_on_same_support as false.
     self.was_on_same_support = false if self.changes.include?(:support_type_id) && !self.changes.include?(:was_on_same_support)
+
+    # need to make sure always return true, otherwise record wont be saved
+    true
   end
 
 end
