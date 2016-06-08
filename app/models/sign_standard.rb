@@ -82,10 +82,7 @@ class SignStandard < ActiveRecord::Base
   ]
 
   SEARCHABLE_FIELDS = [
-    :smo_code,
-    :sign_standard_type,
-    :size_description,
-    :sign_description
+    :smo_code
   ]
 
   #------------------------------------------------------------------------------
