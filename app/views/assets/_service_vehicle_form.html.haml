@@ -32,7 +32,9 @@
       = dialog_tag('Purchase', {:icon => 'fa fa-refresh', :class => "form_part"}) do
 
         = f.input :title_number, :label => "Title Number", :input_html => { :maxlength => 32 }
-        = f.association :title_owner, :collection => current_user.organizations, :label => "Title Owner", :required => true
+        - maspeth_org = Organization.find_by_short_name('MASPETH')
+        - title_owner_orgs = (maspeth_org ? [maspeth_org] : current_user.organizations)
+        = f.association :title_owner, :collection => title_owner_orgs, :include_blank => title_owner_orgs.size  > 1, :label => "Title Owner", :required => true
 
         = f.input :purchase_cost, :wrapper=> :vertical_prepend, :label => "Purchase Cost" do
           %span.input-group-addon
