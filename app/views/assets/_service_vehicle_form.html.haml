@@ -11,6 +11,7 @@
     :boolean => :vertical_boolean}) do |f|
     = f.input :asset_type_id, :as => :hidden
     = f.input :asset_subtype_id, :as => :hidden
+    = f.input :assigned_to_organization_id, :as => :hidden, :input_html => { :value => @asset.organization_id }
 
     .col-md-4
       = dialog_tag('Vehicle Type', {:icon => 'fa fa-refresh', :class => "form_part"}) do
