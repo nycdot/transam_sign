@@ -138,7 +138,7 @@ class SignStandard < ActiveRecord::Base
   end
 
   def one_way_sign?
-    (sign_standard_type_id == SignStandardType.find_by(name: "One Way").try(:id))
+    (sign_standard_type_id == SignStandardType.where(name: "One Way").pluck(:id).first)
   end
 
   def legend

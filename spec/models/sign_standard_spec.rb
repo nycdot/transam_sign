@@ -136,8 +136,9 @@ RSpec.describe SignStandard, :type => :model do
     end
   end
   it '.one_way_sign?' do
+    one_way_standard_type = create(:sign_standard_type, name: "One Way")
     expect(test_sign_standard.one_way_sign?).to be false
-    test_sign_standard.sign_standard_type_id = 42
+    test_sign_standard.sign_standard_type = one_way_standard_type
     expect(test_sign_standard.one_way_sign?).to be true
   end
   it '.legend' do

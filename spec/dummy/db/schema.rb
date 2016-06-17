@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013171103) do
+ActiveRecord::Schema.define(version: 20160531152346) do
 
   create_table "activities", force: true do |t|
     t.string   "object_key",           limit: 12
@@ -273,6 +273,7 @@ ActiveRecord::Schema.define(version: 20151013171103) do
     t.integer  "updated_by_id"
     t.datetime "created_at",                                                               null: false
     t.datetime "updated_at",                                                               null: false
+    t.boolean  "was_on_same_support"
   end
 
   add_index "assets", ["superseded_by_id"], name: "assets_idx13", using: :btree
@@ -1145,6 +1146,7 @@ ActiveRecord::Schema.define(version: 20151013171103) do
   add_index "sign_standards", ["object_key"], name: "sign_standards_idx1", using: :btree
   add_index "sign_standards", ["sign_description"], name: "sign_standards_idx4", using: :btree
   add_index "sign_standards", ["sign_standard_type_id"], name: "sign_standards_idx5", using: :btree
+  add_index "sign_standards", ["smo_code"], name: "index_sign_standards_on_smo_code", unique: true, using: :btree
   add_index "sign_standards", ["smo_code"], name: "sign_standards_idx2", using: :btree
 
   create_table "support_size_types", force: true do |t|
