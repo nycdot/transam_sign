@@ -156,10 +156,7 @@ RSpec.describe SignStandard, :type => :model do
   end
   it '.searchable_fields' do
     expect(test_sign_standard.searchable_fields).to eq([
-      :smo_code,
-      :sign_standard_type,
-      :size_description,
-      :sign_description
+      :smo_code
     ])
   end
 
