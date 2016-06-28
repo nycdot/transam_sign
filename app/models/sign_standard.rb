@@ -152,7 +152,11 @@ class SignStandard < ActiveRecord::Base
 
   # Provide a SMO description
   def description
-    "#{smo_code}  #{sign_description}"
+    if voided?
+      "#{smo_code}(Void)  #{sign_description}"
+    else
+      "#{smo_code}  #{sign_description}"
+    end
   end
 
   # Override the name property
