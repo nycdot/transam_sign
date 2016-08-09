@@ -57,7 +57,7 @@ class SignStandard < ActiveRecord::Base
   # ----------------------------------------------------
   # Validations
   # ----------------------------------------------------
-  validates   :smo_code,            :length => { :in => 1..16 }
+  validates   :smo_code,            :length => { :in => 1..16 }, :uniqueness => true
   validates   :size_description,    :length => { :in => 1..16 }
   validates   :sign_description,    :length => { :in => 1..254 }
   validates   :asset_subtype,       :presence => true
@@ -82,10 +82,7 @@ class SignStandard < ActiveRecord::Base
   ]
 
   SEARCHABLE_FIELDS = [
-    :smo_code,
-    :sign_standard_type,
-    :size_description,
-    :sign_description
+    :smo_code
   ]
 
   #------------------------------------------------------------------------------
@@ -141,7 +138,7 @@ class SignStandard < ActiveRecord::Base
   end
 
   def one_way_sign?
-    (sign_standard_type_id == 42)
+    (sign_standard_type_id == SignStandardType.where(name: "One Way").pluck(:id).first)
   end
 
   def legend
@@ -155,7 +152,11 @@ class SignStandard < ActiveRecord::Base
 
   # Provide a SMO description
   def description
-    "#{smo_code}  #{sign_description}"
+    if voided?
+      "#{smo_code}(Void)  #{sign_description}"
+    else
+      "#{smo_code}  #{sign_description}"
+    end
   end
 
   # Override the name property

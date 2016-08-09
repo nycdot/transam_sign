@@ -15,6 +15,7 @@ class Sign < Asset
   # Callbacks
   # ----------------------------------------------------
   after_initialize :set_defaults
+  before_update   :update_if_was_on_same_support, :except => :create
 
   # ----------------------------------------------------
   # Associations
@@ -120,6 +121,30 @@ class Sign < Asset
     FORM_PARAMS
   end
 
+  def transfer new_organization_id
+    org = Organization.where(:id => new_organization_id).first
+
+    transferred_asset = self.copy false
+    transferred_asset.object_key = nil
+
+    transferred_asset.disposition_date = nil
+    transferred_asset.fta_funding_type = nil
+    transferred_asset.fta_ownership_type = FtaOwnershipType.find_by(:name => 'Unknown')
+    transferred_asset.in_service_date = nil
+    transferred_asset.organization = org
+    transferred_asset.purchase_cost = nil
+    transferred_asset.purchase_date = nil
+    transferred_asset.purchased_new = false
+    transferred_asset.service_status_type = nil
+    transferred_asset.title_owner_organization = nil
+
+    transferred_asset.generate_object_key(:object_key)
+    transferred_asset.asset_tag = transferred_asset.object_key
+
+    transferred_asset.save(:validate => false)
+    return transferred_asset
+  end
+
   #------------------------------------------------------------------------------
   #
   # Instance Methods
@@ -202,6 +227,19 @@ class Sign < Asset
     super
     self.distance_from_intersection ||= 0
     self.lateral_offset ||= 0
+  end
+
+  # was_on_same_support: flag if current sign's previous support type was SAME
+  def update_if_was_on_same_support
+    # was_on_same_support: is only updated behind-the-scene as part of sign deleting process
+    #   e.g., two signs share same support, first with 'DR' and second with 'SAME', user deleted 'DR' sign,
+    #         so second sign support changes from 'SAME' to 'DR', at this moment the system would 
+    #         mark :was_on_same_support as true; then if user directly changes the sign support from `DR` 
+    #         to anything else, system would reset :was_on_same_support as false.
+    self.was_on_same_support = false if self.changes.include?(:support_type_id) && !self.changes.include?(:was_on_same_support)
+
+    # need to make sure always return true, otherwise record wont be saved
+    true
   end
 
 end

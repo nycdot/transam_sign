@@ -151,7 +151,7 @@ class ServiceVehicle < Asset
 
   # Forces an update of an assets mileage. This performs an update on the record. If a policy is passed
   # that policy is used to update the asset otherwise the default policy is used
-  def update_mileage(policy = nil)
+  def update_mileage(save_asset = true, policy = nil)
 
     Rails.logger.info "Updating the recorded mileage method for asset = #{object_key}"
 
@@ -167,7 +167,7 @@ class ServiceVehicle < Asset
           self.reported_mileage = event.current_mileage
           self.reported_mileage_date = event.event_date
         end
-        save
+        save if save_asset
       rescue Exception => e
         Rails.logger.warn e.message
       end
@@ -177,6 +177,31 @@ class ServiceVehicle < Asset
 
   def cost
     purchase_cost
+  end
+
+  def transfer new_organization_id
+    org = Organization.where(:id => new_organization_id).first
+
+    transferred_asset = self.copy false
+    transferred_asset.object_key = nil
+
+    transferred_asset.disposition_date = nil
+    transferred_asset.fta_funding_type = nil
+    transferred_asset.fta_ownership_type = FtaOwnershipType.find_by(:name => 'Unknown')
+    transferred_asset.in_service_date = nil
+    transferred_asset.license_plate = nil
+    transferred_asset.organization = org
+    transferred_asset.purchase_cost = nil
+    transferred_asset.purchase_date = nil
+    transferred_asset.purchased_new = false
+    transferred_asset.service_status_type = nil
+    transferred_asset.title_owner_organization = nil
+
+    transferred_asset.generate_object_key(:object_key)
+    transferred_asset.asset_tag = transferred_asset.object_key
+
+    transferred_asset.save(:validate => false)
+    return transferred_asset
   end
 
   #-----------------------------------------------------------------------------
@@ -195,7 +220,7 @@ class ServiceVehicle < Asset
   def set_defaults
     super
     self.seating_capacity ||= 2
-    self.vehicle_length ||= 0
+    self.vehicle_length ||= 1
     self.gross_vehicle_weight ||= 0
     self.crew_size ||= 2
     self.asset_type ||= AssetType.find_by_class_name(self.name)

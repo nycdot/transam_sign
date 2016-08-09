@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe SignStandard, :type => :model do
 
   let(:org)                     { build_stubbed(:organization) }
-  let(:test_sign_standard)      { build_stubbed(:sign_standard) }
+  let(:test_sign_standard)      { build_stubbed(:sign_standard, :smo_code => "sign_spec_test")}
   let(:persisted_sign_standard) { create(:sign_standard) }
 
   describe 'associations' do
@@ -136,8 +136,9 @@ RSpec.describe SignStandard, :type => :model do
     end
   end
   it '.one_way_sign?' do
+    one_way_standard_type = create(:sign_standard_type, name: "One Way")
     expect(test_sign_standard.one_way_sign?).to be false
-    test_sign_standard.sign_standard_type_id = 42
+    test_sign_standard.sign_standard_type = one_way_standard_type
     expect(test_sign_standard.one_way_sign?).to be true
   end
   it '.legend' do
@@ -148,7 +149,7 @@ RSpec.describe SignStandard, :type => :model do
   end
   describe '.description' do
     it 'should be a standard SMO description' do
-      expect(test_sign_standard.description).to eq("R-116  Railroad crossing sign")
+      expect(test_sign_standard.description).to eq("sign_spec_test  Railroad crossing sign")
     end
   end
   it '.name' do
@@ -156,10 +157,7 @@ RSpec.describe SignStandard, :type => :model do
   end
   it '.searchable_fields' do
     expect(test_sign_standard.searchable_fields).to eq([
-      :smo_code,
-      :sign_standard_type,
-      :size_description,
-      :sign_description
+      :smo_code
     ])
   end
 

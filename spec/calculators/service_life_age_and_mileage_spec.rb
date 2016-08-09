@@ -8,7 +8,7 @@ RSpec.describe ServiceLifeAgeAndMileage, :type => :calculator do
     @test_asset = create(:service_vehicle, :organization => @organization)
     @policy = create(:policy, :organization => @organization)
     create(:policy_asset_type_rule, :policy => @policy, :asset_type => @test_asset.asset_type)
-    create(:policy_asset_subtype_rule, :policy => @policy, :asset_subtype => @test_asset.asset_subtype)
+    create(:policy_asset_subtype_rule, :policy => @policy, :asset_subtype => @test_asset.asset_subtype, :fuel_type_id => @test_asset.fuel_type.id)
 
     @mileage_update_event = create(:mileage_update_event, :asset => @test_asset, :current_mileage => 100000)
 
