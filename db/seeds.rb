@@ -38,7 +38,6 @@ color_types = [
 ]
 
 direction_types = [
-  {:active => 1, :code => "XX", :name => 'Unknown', :description => 'Unknown direction.'},
   {:active => 1, :code => 'N',  :name => 'North', :description => 'North.'},
   {:active => 1, :code => 'NE', :name => 'North East', :description => 'North East.'},
   {:active => 1, :code => 'E',  :name => 'East', :description => 'East.'},
