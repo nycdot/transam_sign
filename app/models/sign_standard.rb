@@ -141,6 +141,10 @@ class SignStandard < ActiveRecord::Base
     (sign_standard_type_id == SignStandardType.where(name: "One Way").pluck(:id).first)
   end
 
+  def reference_line?
+    (sign_standard_type_id == SignStandardType.where(name: "Reference Line").pluck(:id).first)
+  end
+  
   def legend
     sign_description
   end
