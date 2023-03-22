@@ -12,6 +12,9 @@
     = f.input :asset_type_id, :as => :hidden
     = f.input :asset_subtype_id, :as => :hidden
     = f.input :assigned_to_organization_id, :as => :hidden, :input_html => { :value => @asset.organization_id }
+    - if @asset.new_record?
+      - @asset.service_status_type = ServiceStatusType.find_by_code("I")
+      = f.input :service_status_type_id, :as => :hidden 
 
     .col-md-4
       = dialog_tag('Vehicle Type', {:icon => 'fa fa-refresh', :class => "form_part"}) do
@@ -34,7 +37,7 @@
         = f.input :title_number, :label => "Title Number", :input_html => { :maxlength => 32 }
         - maspeth_org = Organization.find_by_short_name('MASPETH')
         - title_owner_orgs = (maspeth_org ? [maspeth_org] : current_user.organizations)
-        = f.association :title_owner, :collection => title_owner_orgs, :include_blank => title_owner_orgs.size  > 1, :label => "Title Owner", :required => true
+        = f.association :title_owner, :collection => title_owner_orgs, :include_blank => title_owner_orgs.size  > 1, :label => "Title Owner", :required => title_owner_orgs.size  > 1
 
         = f.input :purchase_cost, :wrapper=> :vertical_prepend, :label => "Purchase Cost" do
           %span.input-group-addon
