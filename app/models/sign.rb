@@ -15,7 +15,7 @@ class Sign < Asset
   # Callbacks
   # ----------------------------------------------------
   after_initialize :set_defaults
-  before_update   :update_if_was_on_same_support, :except => :create
+  before_update   :update_if_was_on_same_support
 
   # ----------------------------------------------------
   # Associations
@@ -24,37 +24,37 @@ class Sign < Asset
   belongs_to  :sign_standard
 
   # Type of sheeting used on the face of the sign
-  belongs_to  :sheeting_type
+  belongs_to  :sheeting_type, optional: true
 
   # Type of backing material
-  belongs_to  :blank_type
+  belongs_to  :blank_type, optional: true
 
   # legend color
-  belongs_to  :sign_legend_color_type, :class_name => 'ColorType', :foreign_key => :sign_legend_color_type_id
+  belongs_to  :sign_legend_color_type, :class_name => 'ColorType', :foreign_key => :sign_legend_color_type_id, optional: true
 
   # background color
-  belongs_to  :sign_background_color_type, :class_name => 'ColorType', :foreign_key => :sign_background_color_type_id
+  belongs_to  :sign_background_color_type, :class_name => 'ColorType', :foreign_key => :sign_background_color_type_id, optional: true
 
   # Type of support
   belongs_to  :support_type
 
   # Size of the post in inches
-  belongs_to  :support_size_type
+  belongs_to  :support_size_type, optional: true
 
   # Type of support
-  belongs_to  :support_condition_type,  :class_name => 'ConditionType', :foreign_key => :support_condition_type_id
+  belongs_to  :support_condition_type,  :class_name => 'ConditionType', :foreign_key => :support_condition_type_id, optional: true
 
   # Direction of travel with respect to mileposts, markers, etc.
-  belongs_to  :travel_direction_type,  :class_name => "DirectionType", :foreign_key => :travel_direction_type_id
+  belongs_to  :travel_direction_type,  :class_name => "DirectionType", :foreign_key => :travel_direction_type_id, optional: true
 
   # Compass direction for the face of the sign
-  belongs_to  :facing_direction_type,  :class_name => "DirectionType", :foreign_key => :facing_direction_type_id
+  belongs_to  :facing_direction_type,  :class_name => "DirectionType", :foreign_key => :facing_direction_type_id, optional: true
 
   # Compass direction for the face of the sign
-  belongs_to  :arrow_direction_type,  :class_name => "DirectionType", :foreign_key => :arrow_direction_type_id
+  belongs_to  :arrow_direction_type,  :class_name => "DirectionType", :foreign_key => :arrow_direction_type_id, optional: true
 
   # Side of the road for the sign w/r/t the direction of travel
-  belongs_to  :side_of_road_type,      :class_name => "SideType",      :foreign_key => :side_of_road_type_id
+  belongs_to  :side_of_road_type,      :class_name => "SideType",      :foreign_key => :side_of_road_type_id, optional: true
 
   # ----------------------------------------------------
   # Validations
