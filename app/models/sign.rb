@@ -36,7 +36,7 @@ class Sign < Asset
   belongs_to  :sign_background_color_type, :class_name => 'ColorType', :foreign_key => :sign_background_color_type_id, optional: true
 
   # Type of support
-  belongs_to  :support_type
+  belongs_to  :support_type, optional: true
 
   # Size of the post in inches
   belongs_to  :support_size_type, optional: true
