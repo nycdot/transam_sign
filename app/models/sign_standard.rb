@@ -37,7 +37,7 @@ class SignStandard < ActiveRecord::Base
   has_many    :signs, :class_name => 'Sign'
 
   # A sign standard can be superceded
-  belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_by_id
+  belongs_to  :superseded_by,  :class_name => 'SignStandard',  :foreign_key => :superseded_by_id, optional: true 
 
   # A sign standard is always associated with an asset subtype
   belongs_to  :asset_subtype
